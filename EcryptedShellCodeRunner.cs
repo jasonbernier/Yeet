@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Configuration.Install;
 using System.Runtime.InteropServices;
 using System.Text;
-namespace PsBypassCostraintLanguageMode
+namespace RunCode
 {
     public class Program
     {
@@ -54,7 +54,7 @@ namespace PsBypassCostraintLanguageMode
         public override void Uninstall(System.Collections.IDictionary savedState)
         {
 
-            PsBypassCostraintLanguageMode.Program.Main();
+            RunCode.Program.Main();
         }
         public override void Install(System.Collections.IDictionary savedState)
         {
